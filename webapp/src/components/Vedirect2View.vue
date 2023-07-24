@@ -18,7 +18,7 @@
                         <div class="p-1 flex-grow-1">
                             <div class="d-flex flex-wrap">
                                 <div style="padding-right: 2em;">
-                                    {{ $t("Victron #1: ") }} {{ vedirectData.PID }}
+                                    {{ $t("Victron #2: ") }} {{ vedirectData.PID }}
                                 </div>
                                 <div style="padding-right: 2em;">
                                     {{ $t('vedirecthome.SerialNumber') }} {{ vedirectData.SER }}
@@ -218,9 +218,9 @@ export default defineComponent({
     },
     methods: {
         getInitialData() {
-            console.log("###VeDirect1: Get initalData for VeDirect");
+            console.log("Get initialData for VeDirect2");
             this.dataLoading = true;
-            fetch("/api/vedirectlivedata/status", { headers: authHeader() })
+            fetch("/api/vedirect2livedata/status", { headers: authHeader() })
                 .then((response) => handleResponse(response, this.$emitter, this.$router))
                 .then((root) => {
                     this.dplData = root["dpl"];
@@ -228,16 +228,15 @@ export default defineComponent({
                     this.vedirectOutput = root["output"];
                     this.vedirectInput = root["input"];
                     this.dataLoading = false;
-                    console.log("###VeDirect1: Got initialData for VeDirect", this.vedirectData);
-                });
+                 });
         },
         initSocket() {
-            console.log("###VeDirect1: initSocket0: Starting connection to VeDirect WebSocket Server");
+            console.log("Starting connection to VeDirect2 WebSocket Server");
 
             const { protocol, host } = location;
             const authString = authUrl();
             const webSocketUrl = `${protocol === "https:" ? "wss" : "ws"
-                }://${authString}${host}/vedirectlivedata`;
+                }://${authString}${host}/vedirect2livedata`;
 
             this.socket = new WebSocket(webSocketUrl);
 
@@ -251,10 +250,10 @@ export default defineComponent({
                 this.dataLoading = false;
                 this.heartCheck(); // Reset heartbeat detection
             };
-
+            
             this.socket.onopen = function (event) {
                 console.log(event);
-                console.log("Successfully connected to the VeDirect websocket server...");
+                console.log("Successfully connected to the VeDirect2 websocket server...");
             };
 
             // Listen to window events , When the window closes , Take the initiative to disconnect websocket Connect

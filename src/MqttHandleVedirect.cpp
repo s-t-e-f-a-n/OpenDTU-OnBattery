@@ -11,10 +11,18 @@
 
 
 MqttHandleVedirectClass MqttHandleVedirect;
+MqttHandleVedirect2Class MqttHandleVedirect2;
 
 // #define MQTTHANDLEVEDIRECT_DEBUG
 
 void MqttHandleVedirectClass::init()
+{
+    // initially force a full publish
+    _nextPublishUpdatesOnly = 0;
+    _nextPublishFull = 1;
+}
+
+void MqttHandleVedirect2Class::init()
 {
     // initially force a full publish
     _nextPublishUpdatesOnly = 0;
@@ -51,7 +59,7 @@ void MqttHandleVedirectClass::loop()
         #endif
 
         String value;
-        String topic = "victron/";
+        String topic = "victron1/";
         topic.concat(VeDirect.veFrame.SER);
         topic.concat("/");
 
@@ -140,4 +148,126 @@ void MqttHandleVedirectClass::loop()
         MessageOutput.printf("MqttHandleVedirectClass::loop _nextPublishUpdatesOnly %u   _nextPublishFull %u\r\n", _nextPublishUpdatesOnly, _nextPublishFull);
         #endif
     }
+}
+
+void MqttHandleVedirect2Class::loop()
+{
+    CONFIG_T& config = Configuration.get();
+
+    if (!MqttSettings.getConnected() || !config.Vedirect_Enabled) {
+        return;
+    }   
+
+    if (!VeDirect.isDataValid()) { 
+        return;
+    }
+
+    if ((millis() >= _nextPublishFull) || (millis() >= _nextPublishUpdatesOnly)) {
+        // determine if this cycle should publish full values or updates only
+        if (_nextPublishFull <= _nextPublishUpdatesOnly) {
+            _PublishFull = true;
+        } else {
+            _PublishFull = !config.Vedirect_UpdatesOnly;
+        }
+
+        #ifdef MQTTHANDLEVEDIRECT_DEBUG
+        MessageOutput.printf("\r\n\r\nMqttHandleVedirect2Class::loop millis %lu   _nextPublishUpdatesOnly %u   _nextPublishFull %u\r\n", millis(), _nextPublishUpdatesOnly, _nextPublishFull);
+        if (_PublishFull) {
+            MessageOutput.println("MqttHandleVedirect2Class::loop publish full");
+        } else {
+            MessageOutput.println("MqttHandleVedirect2Class::loop publish updates only");
+        }
+        #endif
+
+        String value;
+        String topic = "victron2/";
+        topic.concat(VeDirect.veFrame.SER);
+        topic.concat("/");
+
+        if (_PublishFull || VeDirect2.veFrame.PID != _kvFrame.PID)
+            MqttSettings.publish(topic + "PID", VeDirect2.getPidAsString(VeDirect2.veFrame.PID)); 
+        if (_PublishFull || strcmp(VeDirect2.veFrame.SER, _kvFrame.SER) != 0)
+            MqttSettings.publish(topic + "SER", VeDirect2.veFrame.SER ); 
+        if (_PublishFull || strcmp(VeDirect2.veFrame.FW, _kvFrame.FW) != 0)
+            MqttSettings.publish(topic + "FW", VeDirect2.veFrame.FW); 
+        if (_PublishFull || VeDirect2.veFrame.LOAD != _kvFrame.LOAD)
+            MqttSettings.publish(topic + "LOAD", VeDirect2.veFrame.LOAD == true ? "ON": "OFF"); 
+        if (_PublishFull || VeDirect2.veFrame.CS != _kvFrame.CS)
+            MqttSettings.publish(topic + "CS", VeDirect2.getCsAsString(VeDirect2.veFrame.CS)); 
+        if (_PublishFull || VeDirect2.veFrame.ERR != _kvFrame.ERR)
+            MqttSettings.publish(topic + "ERR", VeDirect2.getErrAsString(VeDirect2.veFrame.ERR)); 
+        if (_PublishFull || VeDirect2.veFrame.OR != _kvFrame.OR)
+            MqttSettings.publish(topic + "OR", VeDirect2.getOrAsString(VeDirect2.veFrame.OR)); 
+        if (_PublishFull || VeDirect2.veFrame.MPPT != _kvFrame.MPPT)
+            MqttSettings.publish(topic + "MPPT", VeDirect2.getMpptAsString(VeDirect2.veFrame.MPPT)); 
+        if (_PublishFull || VeDirect2.veFrame.HSDS != _kvFrame.HSDS) {
+            value = VeDirect2.veFrame.HSDS;
+            MqttSettings.publish(topic + "HSDS", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.V != _kvFrame.V) {
+            value = VeDirect2.veFrame.V;
+            MqttSettings.publish(topic + "V", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.I != _kvFrame.I) {
+            value = VeDirect2.veFrame.I;
+            MqttSettings.publish(topic + "I", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.VPV != _kvFrame.VPV) {
+            value = VeDirect2.veFrame.VPV;
+            MqttSettings.publish(topic + "VPV", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.PPV != _kvFrame.PPV) {
+            value = VeDirect2.veFrame.PPV;
+            MqttSettings.publish(topic + "PPV", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.H19 != _kvFrame.H19) {
+            value = VeDirect2.veFrame.H19;
+            MqttSettings.publish(topic + "H19", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.H20 != _kvFrame.H20) {
+            value = VeDirect2.veFrame.H20;
+            MqttSettings.publish(topic + "H20", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.H21 != _kvFrame.H21) {
+            value = VeDirect2.veFrame.H21;
+            MqttSettings.publish(topic + "H21", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.H22 != _kvFrame.H22) {
+            value = VeDirect2.veFrame.H22;
+            MqttSettings.publish(topic + "H22", value); 
+        }
+        if (_PublishFull || VeDirect2.veFrame.H23 != _kvFrame.H23) {
+            value = VeDirect2.veFrame.H23;
+            MqttSettings.publish(topic + "H23", value); 
+        }
+        if (!_PublishFull) {
+            _kvFrame= VeDirect2.veFrame;
+        }
+
+        // now calculate next points of time to publish
+        _nextPublishUpdatesOnly = millis() + (config.Mqtt_PublishInterval * 1000);
+
+        if (_PublishFull) {
+            // when Home Assistant MQTT-Auto-Discovery is active,
+            // and "enable expiration" is active, all values must be published at
+            // least once before the announced expiry interval is reached
+            if ((config.Vedirect_UpdatesOnly) && (config.Mqtt_Hass_Enabled) && (config.Mqtt_Hass_Expire)) {
+                _nextPublishFull = millis() + (((config.Mqtt_PublishInterval * 3) - 1) * 1000);
+
+                #ifdef MQTTHANDLEVEDIRECT_DEBUG
+                uint32_t _tmpNextFullSeconds = (config.Mqtt_PublishInterval * 3) - 1;
+                MessageOutput.printf("MqttHandleVedirect2Class::loop _tmpNextFullSeconds %u - _nextPublishFull %u \r\n", _tmpNextFullSeconds, _nextPublishFull);
+                #endif
+
+            } else {
+                // no future publish full needed
+                _nextPublishFull = UINT32_MAX;
+            }
+        }
+
+        #ifdef MQTTHANDLEVEDIRECT_DEBUG
+        MessageOutput.printf("MqttHandleVedirect2Class::loop _nextPublishUpdatesOnly %u   _nextPublishFull %u\r\n", _nextPublishUpdatesOnly, _nextPublishFull);
+        #endif
+    }
+
 }

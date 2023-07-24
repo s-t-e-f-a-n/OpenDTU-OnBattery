@@ -94,6 +94,14 @@
 #define VICTRON_PIN_RX -1
 #endif
 
+#ifndef VICTRON2_PIN_TX
+#define VICTRON2_PIN_TX -1
+#endif
+
+#ifndef VICTRON2_PIN_RX
+#define VICTRON2_PIN_RX -1
+#endif
+
 #ifndef PYLONTECH_PIN_RX
 #define PYLONTECH_PIN_RX -1
 #endif
@@ -166,6 +174,9 @@ PinMappingClass::PinMappingClass()
    
     _pinMapping.victron_tx = VICTRON_PIN_TX;
     _pinMapping.victron_rx = VICTRON_PIN_RX;
+
+    _pinMapping.victron2_tx = VICTRON2_PIN_TX;
+    _pinMapping.victron2_rx = VICTRON2_PIN_RX;
 
     _pinMapping.battery_rx = PYLONTECH_PIN_RX;
     _pinMapping.battery_tx = PYLONTECH_PIN_TX;
@@ -240,6 +251,9 @@ bool PinMappingClass::init(const String& deviceMapping)
             _pinMapping.victron_rx = doc[i]["victron"]["rx"] | VICTRON_PIN_RX;
             _pinMapping.victron_tx = doc[i]["victron"]["tx"] | VICTRON_PIN_TX;
 
+            _pinMapping.victron2_rx = doc[i]["victron"]["rx2"] | VICTRON2_PIN_RX;
+            _pinMapping.victron2_tx = doc[i]["victron"]["tx2"] | VICTRON2_PIN_TX;
+
             _pinMapping.battery_rx = doc[i]["battery"]["rx"] | PYLONTECH_PIN_RX;
             _pinMapping.battery_tx = doc[i]["battery"]["tx"] | PYLONTECH_PIN_TX;
 
@@ -286,7 +300,9 @@ bool PinMappingClass::isValidEthConfig()
 bool PinMappingClass::isValidVictronConfig()
 {
     return _pinMapping.victron_rx >= 0
-        && _pinMapping.victron_tx >= 0;
+        && _pinMapping.victron_tx >= 0
+        && _pinMapping.victron2_rx >= 0
+        && _pinMapping.victron2_tx >= 0;
 }
 
 bool PinMappingClass::isValidBatteryConfig()

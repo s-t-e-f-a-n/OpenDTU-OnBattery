@@ -24,6 +24,7 @@
 #include "WebApi_ws_console.h"
 #include "WebApi_ws_live.h"
 #include "WebApi_ws_vedirect_live.h"
+#include "WebApi_ws_vedirect2_live.h"
 #include "WebApi_vedirect.h"
 #include "WebApi_ws_Huawei.h"
 #include "WebApi_Huawei.h"
@@ -69,7 +70,9 @@ private:
     WebApiWsConsoleClass _webApiWsConsole;
     WebApiWsLiveClass _webApiWsLive;
     WebApiWsVedirectLiveClass _webApiWsVedirectLive;
+    WebApiWsVedirect2LiveClass _webApiWsVedirect2Live;
     WebApiVedirectClass _webApiVedirect;
+//    WebApiVedirect2Class _webApiVedirect2;
     WebApiHuaweiClass _webApiHuaweiClass;
     WebApiWsHuaweiLiveClass _webApiWsHuaweiLive;
     WebApiPylontechClass _webApiPylontechClass;

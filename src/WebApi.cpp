@@ -40,8 +40,9 @@ void WebApiClass::init()
     _webApiWsConsole.init(&_server);
     _webApiWsLive.init(&_server);
     _webApiWsVedirectLive.init(&_server);
+    _webApiWsVedirect2Live.init(&_server);
     _webApiVedirect.init(&_server);
-    _webApiWsHuaweiLive.init(&_server);
+     _webApiWsHuaweiLive.init(&_server);
     _webApiHuaweiClass.init(&_server);
     _webApiWsPylontechLive.init(&_server);
     _webApiPylontechClass.init(&_server);
@@ -73,8 +74,9 @@ void WebApiClass::loop()
     _webApiWsConsole.loop();
     _webApiWsLive.loop();
     _webApiWsVedirectLive.loop();
+    _webApiWsVedirect2Live.loop();
     _webApiVedirect.loop();
-    _webApiWsHuaweiLive.loop();
+     _webApiWsHuaweiLive.loop();
     _webApiHuaweiClass.loop();
     _webApiWsPylontechLive.loop();
     _webApiPylontechClass.loop();

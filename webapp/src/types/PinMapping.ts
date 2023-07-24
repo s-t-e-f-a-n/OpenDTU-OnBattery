@@ -37,6 +37,8 @@ export interface Display {
 export interface Victron {
     rx: number;
     tx: number;
+    rx2: number;
+    tx2: number;
 }
 
 export interface Battery {

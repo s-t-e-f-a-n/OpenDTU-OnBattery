@@ -115,6 +115,7 @@
             </div>
         </div>
         <VedirectView v-show="liveData.vedirect.enabled" />
+        <Vedirect2View v-show="liveData.vedirect.enabled" />
         <div v-show="liveData.battery.enabled" >
           <BatteryView/>
         </div>
@@ -332,6 +333,7 @@ import HintView from '@/components/HintView.vue';
 import InverterChannelInfo from "@/components/InverterChannelInfo.vue";
 import InverterTotalInfo from '@/components/InverterTotalInfo.vue';
 import VedirectView from '@/components/VedirectView.vue';
+import Vedirect2View from '@/components/Vedirect2View.vue';
 import HuaweiView from '@/components/HuaweiView.vue'
 import BatteryView from '@/components/BatteryView.vue'
 import type { DevInfoStatus } from '@/types/DevInfoStatus';
@@ -375,6 +377,7 @@ export default defineComponent({
         BIconToggleOn,
         BIconXCircleFill,
         VedirectView,
+        Vedirect2View,
         HuaweiView,
         BatteryView
     },

@@ -110,6 +110,7 @@ void setup()
     MqttHandleInverter.init();
     MqttHandleInverterTotal.init();
     MqttHandleVedirect.init();
+    MqttHandleVedirect2.init();
     MqttHandleHass.init();
     MqttHandleVedirectHass.init();
     MqttHandleHuawei.init();
@@ -163,8 +164,10 @@ void setup()
     // Initialize ve.direct communication
     MessageOutput.println(F("Initialize ve.direct interface... "));
     if (PinMapping.isValidVictronConfig()) {
-        MessageOutput.printf("ve.direct rx = %d, tx = %d\r\n", pin.victron_rx, pin.victron_tx);
+        MessageOutput.printf("ve.direct #1 rx = %d, tx = %d\r\n", pin.victron_rx, pin.victron_tx);
+        MessageOutput.printf("ve.direct #2 rx = %d, tx = %d\r\n", pin.victron2_rx, pin.victron2_tx);
         VeDirect.init(pin.victron_rx, pin.victron_tx);
+        VeDirect2.init(pin.victron2_rx, pin.victron2_tx);
         MessageOutput.println(F("done"));
     } else {
         MessageOutput.println(F("Invalid pin config"));
@@ -213,6 +216,8 @@ void loop()
     if (Configuration.get().Vedirect_Enabled) {
 		VeDirect.loop();
         yield();
+        VeDirect2.loop();
+        yield();
 	}
     MqttHandleDtu.loop();
     yield();
@@ -221,6 +226,8 @@ void loop()
     MqttHandleInverterTotal.loop();
     yield();
     MqttHandleVedirect.loop();
+    yield();
+    MqttHandleVedirect2.loop();
     yield();
     MqttHandleHass.loop();
     yield();

@@ -121,4 +121,5 @@ private:
 };
 
 extern VeDirectFrameHandler VeDirect;
+extern VeDirectFrameHandler VeDirect2;
 

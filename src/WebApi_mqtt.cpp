@@ -335,6 +335,7 @@ void WebApiMqttClass::onMqttAdminPost(AsyncWebServerRequest* request)
     MqttHandleHass.forceUpdate();
     MqttHandleVedirectHass.forceUpdate();
     MqttHandleVedirect.init();
+    MqttHandleVedirect2.init();
     PowerMeter.init();
     PowerLimiter.init();
 }

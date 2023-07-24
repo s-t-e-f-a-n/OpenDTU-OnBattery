@@ -52,8 +52,10 @@ enum States {
 };
 
 HardwareSerial VedirectSerial(1);
+HardwareSerial Vedirect2Serial(2);
 
 VeDirectFrameHandler VeDirect;
+VeDirectFrameHandler VeDirect2;
 
 VeDirectFrameHandler::VeDirectFrameHandler() :
 	//mStop(false),	// don't know what Victron uses this for, not using

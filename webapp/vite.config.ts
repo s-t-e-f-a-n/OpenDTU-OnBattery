@@ -52,20 +52,25 @@ export default defineConfig({
   server: {
     proxy: {
       '^/api': {
-        target: 'http://192.168.178.87/'
+        target: 'http://192.168.1.30/'
       },
       '^/livedata': {
-        target: 'ws://192.168.178.87/',
+        target: 'ws://192.168.1.30/',
         ws: true,
         changeOrigin: true
       },
       '^/vedirectlivedata': {
-        target: 'ws://192.168.178.87/',
+        target: 'ws://192.168.1.30/',
+        ws: true,
+        changeOrigin: true
+      },
+      '^/vedirect2livedata': {
+        target: 'ws://192.168.1.30/',
         ws: true,
         changeOrigin: true
       },
       '^/console': {
-        target: 'ws://192.168.178.87/',
+        target: 'ws://192.168.1.30/',
         ws: true,
         changeOrigin: true
       }
