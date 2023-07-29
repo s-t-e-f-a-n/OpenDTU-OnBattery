@@ -70,16 +70,29 @@ VeDirectFrameHandler::VeDirectFrameHandler() :
 {
 }
 
-void VeDirectFrameHandler::init(int8_t rx, int8_t tx)
+void VeDirectFrameHandler::init(int8_t uart_nr, int8_t rx, int8_t tx)
 {
-    VedirectSerial.begin(19200, SERIAL_8N1, rx, tx, true);
-    VedirectSerial.flush();
+    if ( uart_nr == 1) {
+		VedirectSerial.begin(19200, SERIAL_8N1, rx, tx, true);
+    	VedirectSerial.flush();
+	}
+	else {
+		Vedirect2Serial.begin(19200, SERIAL_8N1, rx, tx, true);
+    	Vedirect2Serial.flush();
+	}
 }
 
-void VeDirectFrameHandler::loop()
+void VeDirectFrameHandler::loop(int8_t uart_nr)
 {
-	while ( VedirectSerial.available()) {
-		rxData(VedirectSerial.read());
+	if ( uart_nr == 1) {
+		while ( VedirectSerial.available()) {
+			rxData(VedirectSerial.read());
+		}
+	}
+	else {
+		while ( Vedirect2Serial.available()) {
+			rxData(Vedirect2Serial.read());
+		}
 	}
 }
 

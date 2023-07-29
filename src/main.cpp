@@ -166,8 +166,8 @@ void setup()
     if (PinMapping.isValidVictronConfig()) {
         MessageOutput.printf("ve.direct #1 rx = %d, tx = %d\r\n", pin.victron_rx, pin.victron_tx);
         MessageOutput.printf("ve.direct #2 rx = %d, tx = %d\r\n", pin.victron2_rx, pin.victron2_tx);
-        VeDirect.init(pin.victron_rx, pin.victron_tx);
-        VeDirect2.init(pin.victron2_rx, pin.victron2_tx);
+        VeDirect.init(1, pin.victron_rx, pin.victron_tx);
+        VeDirect2.init(2, pin.victron2_rx, pin.victron2_tx);
         MessageOutput.println(F("done"));
     } else {
         MessageOutput.println(F("Invalid pin config"));
@@ -214,9 +214,9 @@ void loop()
     yield();
     // Vedirect_Enabled is unknown to lib. Therefor check has to be done here
     if (Configuration.get().Vedirect_Enabled) {
-		VeDirect.loop();
+		VeDirect.loop(1);
         yield();
-        VeDirect2.loop();
+        VeDirect2.loop(2);
         yield();
 	}
     MqttHandleDtu.loop();

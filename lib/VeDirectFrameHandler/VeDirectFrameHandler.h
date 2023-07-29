@@ -87,8 +87,8 @@ class VeDirectFrameHandler {
 public:
 
     VeDirectFrameHandler();
-    void init(int8_t rx, int8_t tx);             // initialize HardewareSerial
-    void loop();                                 // main loop to read ve.direct data
+    void init(int8_t uart_nr, int8_t rx, int8_t tx);             // initialize HardewareSerial
+    void loop(int8_t uart_nr);                                 // main loop to read ve.direct data
     unsigned long getLastUpdate();               // timestamp of last successful frame read
     bool isDataValid();                          // return true if data valid and not outdated
     String getPidAsString(uint16_t pid);      // product id as string  

@@ -29,22 +29,5 @@ private:
     bool _PublishFull;
 };
 
-class MqttHandleVedirect2Class {
-public:
-    void init();
-    void loop();
-private:
-    veStruct _kvFrame{};
-
-    // point of time in millis() when updated values will be published
-    uint32_t _nextPublishUpdatesOnly = 0;
-
-    // point of time in millis() when all values will be published
-    uint32_t _nextPublishFull = 1;
-
-    bool _PublishFull;
-};
-
-
 extern MqttHandleVedirectClass MqttHandleVedirect;
-extern MqttHandleVedirect2Class MqttHandleVedirect2;
+extern MqttHandleVedirectClass MqttHandleVedirect2;

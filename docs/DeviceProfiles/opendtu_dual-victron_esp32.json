@@ -1,0 +1,169 @@
+[
+    {
+        "eth": {
+            "enabled": false
+        },
+        "name": "NRF24 + DualVictron",
+        "nrf24": {
+            "clk": 18,
+            "cs": 5,
+            "en": 4,
+            "irq": 2,
+            "miso": 19,
+            "mosi": 23
+        },
+        "victron": {
+            "rx": 3,
+            "rx2": 16,
+            "tx": 1,
+            "tx2": 17
+        }
+    },
+    {
+        "eth": {
+            "enabled": false
+        },
+        "name": "NRF24",
+        "nrf24": {
+            "clk": 18,
+            "cs": 5,
+            "en": 4,
+            "irq": 16,
+            "miso": 19,
+            "mosi": 23
+        }
+    },
+    {
+        "cmt": {
+            "clk": 18,
+            "cs": 4,
+            "fcs": 5,
+            "gpio2": 19,
+            "gpio3": 16,
+            "sdio": 23
+        },
+        "eth": {
+            "enabled": false
+        },
+        "name": "CMT2300A",
+        "nrf24": {
+            "clk": -1,
+            "cs": -1,
+            "en": -1,
+            "irq": -1,
+            "miso": -1,
+            "mosi": -1
+        }
+    },
+    {
+        "display": {
+            "clk": 22,
+            "data": 21,
+            "type": 2
+        },
+        "eth": {
+            "enabled": false
+        },
+        "name": "NRF24 with SSD1306",
+        "nrf24": {
+            "clk": 18,
+            "cs": 5,
+            "en": 4,
+            "irq": 16,
+            "miso": 19,
+            "mosi": 23
+        }
+    },
+    {
+        "display": {
+            "clk": 22,
+            "data": 21,
+            "type": 3
+        },
+        "eth": {
+            "enabled": false
+        },
+        "name": "NRF24 with SH1106",
+        "nrf24": {
+            "clk": 18,
+            "cs": 5,
+            "en": 4,
+            "irq": 16,
+            "miso": 19,
+            "mosi": 23
+        }
+    },
+    {
+        "cmt": {
+            "clk": 18,
+            "cs": 4,
+            "fcs": 5,
+            "gpio2": 19,
+            "gpio3": 16,
+            "sdio": 23
+        },
+        "display": {
+            "clk": 22,
+            "data": 21,
+            "type": 2
+        },
+        "eth": {
+            "enabled": false
+        },
+        "name": "CMT2300A with SSD1306",
+        "nrf24": {
+            "clk": -1,
+            "cs": -1,
+            "en": -1,
+            "irq": -1,
+            "miso": -1,
+            "mosi": -1
+        }
+    },
+    {
+        "cmt": {
+            "clk": 18,
+            "cs": 4,
+            "fcs": 5,
+            "gpio2": 19,
+            "gpio3": 16,
+            "sdio": 23
+        },
+        "display": {
+            "clk": 22,
+            "data": 21,
+            "type": 3
+        },
+        "eth": {
+            "enabled": false
+        },
+        "name": "CMT2300A with SH1106",
+        "nrf24": {
+            "clk": -1,
+            "cs": -1,
+            "en": -1,
+            "irq": -1,
+            "miso": -1,
+            "mosi": -1
+        }
+    },
+    {
+        "cmt": {
+            "clk": 12,
+            "cs": 27,
+            "fcs": 26,
+            "gpio2": -1,
+            "gpio3": -1,
+            "sdio": 14
+        },
+        "name": "NRF24 + CMT2300A",
+        "nrf24": {
+            "clk": 18,
+            "cs": 5,
+            "en": 4,
+            "irq": 16,
+            "miso": 19,
+            "mosi": 23
+        }
+    }
+]
