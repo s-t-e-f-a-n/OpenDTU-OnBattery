@@ -28,6 +28,7 @@
 #include "WebApi.h"
 #include "PowerMeter.h"
 #include "PowerLimiter.h"
+#include "TemperatureMeter.h"
 #include "defaults.h"
 #include <Arduino.h>
 #include <LittleFS.h>
@@ -198,6 +199,8 @@ void setup()
         MessageOutput.println(F("Invalid pin config"));
     }
 
+    TemperatureMeter.init();
+
 }
 
 void loop()
@@ -250,5 +253,7 @@ void loop()
     HuaweiCan.loop();
     yield();
     LedSingle.loop();
+    yield();
+    TemperatureMeter.loop();
     yield();
 }

@@ -68,6 +68,11 @@ export interface PowerMeter {
   Power: ValueObject;
 }
 
+export interface TemperatureMeter {
+    enabled: boolean;
+    Temperature: ValueObject;
+}
+
 export interface LiveData {
     inverters: Inverter[];
     total: Total;
@@ -76,4 +81,5 @@ export interface LiveData {
     huawei: Huawei;
     battery: Battery;
     power_meter: PowerMeter;
+    temperature_meter: TemperatureMeter;
 }

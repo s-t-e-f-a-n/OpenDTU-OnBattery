@@ -12,6 +12,7 @@ import PowerMeterAdminView from '@/views/PowerMeterAdminView.vue'
 import PowerLimiterAdminView from '@/views/PowerLimiterAdminView.vue'
 import VedirectInfoView from '@/views/VedirectInfoView.vue'
 import InverterAdminView from '@/views/InverterAdminView.vue';
+import TemperatureAdminView from '@/views/TemperatureAdminView.vue';
 import LoginView from '@/views/LoginView.vue';
 import MaintenanceRebootView from '@/views/MaintenanceRebootView.vue';
 import MqttAdminView from '@/views/MqttAdminView.vue';
@@ -107,6 +108,11 @@ const router = createRouter({
       path: '/settings/chargerac',
       name: 'Charger Settings',
       component: AcChargerAdminView
+    },
+    {
+        path: '/settings/temperature',
+        name: 'Temperature Settings',
+        component: TemperatureAdminView
     },
     {
         path: '/settings/mqtt',

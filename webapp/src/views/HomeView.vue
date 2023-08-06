@@ -1,7 +1,8 @@
 <template>
     <BasePage :title="$t('home.LiveData')" :isLoading="dataLoading" :isWideScreen="true">
         <HintView :hints="liveData.hints" />
-        <InverterTotalInfo :totalData="liveData.total" :totalVeData="liveData.vedirect" :totalBattData="liveData.battery" :powerMeterData="liveData.power_meter" :huaweiData="liveData.huawei"/><br />
+        <!-- <TemperatureInfo :temperatureMeterData="liveData.temperature_meter"/><br /> -->
+        <InverterTotalInfo :totalData="liveData.total" :totalVeData="liveData.vedirect" :totalBattData="liveData.battery" :powerMeterData="liveData.power_meter" :huaweiData="liveData.huawei" :temperatureMeterData="liveData.temperature_meter"/><br />
         <div class="row gy-3">
             <div class="col-sm-3 col-md-2" :style="[inverterData.length == 1 ? { 'display': 'none' } : {}]">
                 <div class="nav nav-pills row-cols-sm-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -331,6 +332,7 @@ import DevInfo from '@/components/DevInfo.vue';
 import EventLog from '@/components/EventLog.vue';
 import HintView from '@/components/HintView.vue';
 import InverterChannelInfo from "@/components/InverterChannelInfo.vue";
+import TemperatureInfo from '@/components/TemperatureInfo.vue';
 import InverterTotalInfo from '@/components/InverterTotalInfo.vue';
 import VedirectView from '@/components/VedirectView.vue';
 import Vedirect2View from '@/components/Vedirect2View.vue';
@@ -365,6 +367,7 @@ export default defineComponent({
         EventLog,
         HintView,
         InverterChannelInfo,
+        TemperatureInfo,
         InverterTotalInfo,
         BIconArrowCounterclockwise,
         BIconCheckCircleFill,

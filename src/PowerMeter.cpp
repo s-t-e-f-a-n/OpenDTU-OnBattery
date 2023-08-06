@@ -3,12 +3,14 @@
  * Copyright (C) 2022 Thomas Basler and others
  */
 #include "PowerMeter.h"
+#include "HttpPowerMeter.h"
 #include "Configuration.h"
 #include "HttpPowerMeter.h"
 #include "MqttSettings.h"
 #include "NetworkSettings.h"
 #include "SDM.h"
 #include "MessageOutput.h"
+#include <FirebaseJson.h>
 #include <ctime>
 #include <SoftwareSerial.h>
 
@@ -71,6 +73,8 @@ void PowerMeterClass::init()
 
 void PowerMeterClass::onMqttMessage(const espMqttClientTypes::MessageProperties& properties, const char* topic, const uint8_t* payload, size_t len, size_t index, size_t total)
 {
+    MessageOutput.printf("_powerMeter1Power: %s von topic: %s", payload, topic);
+
     CONFIG_T& config = Configuration.get();
 
     if (!config.PowerMeter_Enabled || config.PowerMeter_Source != SOURCE_MQTT) {
@@ -78,7 +82,15 @@ void PowerMeterClass::onMqttMessage(const espMqttClientTypes::MessageProperties&
     }
 
     if (strcmp(topic, config.PowerMeter_MqttTopicPowerMeter1) == 0) {
-        _powerMeter1Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        if (strcmp(config.PowerMeter_MqttJsonPath,"") == 0) {
+            _powerMeter1Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        }
+        else {
+           HttpPowerMeter.getFloatValueByJsonPath( (const char*)payload, config.PowerMeter_MqttJsonPath, _powerMeter1Power);
+        }
+
+        MessageOutput.printf("PowerMeterClass: _powerMeter1Power: %f\r\n", _powerMeter1Power);
+
     }
 
     if (strcmp(topic, config.PowerMeter_MqttTopicPowerMeter2) == 0) {
@@ -90,7 +102,7 @@ void PowerMeterClass::onMqttMessage(const espMqttClientTypes::MessageProperties&
     }
 
     MessageOutput.printf("PowerMeterClass: TotalPower: %5.2f\r\n", getPowerTotal());
-
+    
     _lastPowerMeterUpdate = millis();
 }
 

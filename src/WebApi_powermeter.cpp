@@ -44,6 +44,7 @@ void WebApiPowerMeterClass::onStatus(AsyncWebServerRequest* request)
     root[F("mqtt_topic_powermeter_1")] = config.PowerMeter_MqttTopicPowerMeter1;
     root[F("mqtt_topic_powermeter_2")] = config.PowerMeter_MqttTopicPowerMeter2;
     root[F("mqtt_topic_powermeter_3")] = config.PowerMeter_MqttTopicPowerMeter3;
+    root[F("mqtt_json_path")] = config.PowerMeter_MqttJsonPath;
     root[F("sdmbaudrate")] = config.PowerMeter_SdmBaudrate;
     root[F("sdmaddress")] = config.PowerMeter_SdmAddress;
     root[F("http_individual_requests")] = config.PowerMeter_HttpIndividualRequests;
@@ -174,6 +175,7 @@ void WebApiPowerMeterClass::onAdminPost(AsyncWebServerRequest* request)
     strlcpy(config.PowerMeter_MqttTopicPowerMeter1, root[F("mqtt_topic_powermeter_1")].as<String>().c_str(), sizeof(config.PowerMeter_MqttTopicPowerMeter1));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter2, root[F("mqtt_topic_powermeter_2")].as<String>().c_str(), sizeof(config.PowerMeter_MqttTopicPowerMeter2));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter3, root[F("mqtt_topic_powermeter_3")].as<String>().c_str(), sizeof(config.PowerMeter_MqttTopicPowerMeter3));
+    strlcpy(config.PowerMeter_MqttJsonPath, root[F("mqtt_json_path")].as<String>().c_str(), sizeof(config.PowerMeter_MqttJsonPath));
     config.PowerMeter_SdmBaudrate = root[F("sdmbaudrate")].as<uint32_t>();
     config.PowerMeter_SdmAddress = root[F("sdmaddress")].as<uint8_t>();
     config.PowerMeter_HttpIndividualRequests = root[F("http_individual_requests")].as<bool>();

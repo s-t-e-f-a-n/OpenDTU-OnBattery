@@ -67,6 +67,9 @@
                                 <router-link @click="onClick" class="dropdown-item" to="/settings/chargerac">{{ $t('menu.AcChargerSettings') }}</router-link>
                             </li>
                             <li>
+                                <router-link @click="onClick" class="dropdown-item" to="/settings/temperature">{{ $t('menu.TemperatureSettings') }}</router-link>
+                            </li>
+                            <li>
                                 <router-link @click="onClick" class="dropdown-item" to="/settings/device">{{ $t('menu.DeviceManager') }}</router-link>
                             </li>
                             <li>

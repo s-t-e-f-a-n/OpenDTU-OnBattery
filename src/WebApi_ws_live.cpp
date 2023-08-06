@@ -11,6 +11,7 @@
 #include "Huawei_can.h"
 #include "PowerMeter.h"
 #include "VeDirectFrameHandler.h"
+#include "TemperatureMeter.h"
 #include "defaults.h"
 #include <AsyncJson.h>
 
@@ -210,6 +211,10 @@ void WebApiWsLiveClass::generateJsonResponse(JsonVariant& root)
     JsonObject powerMeterObj = root.createNestedObject("power_meter");
     powerMeterObj[F("enabled")] = Configuration.get().PowerMeter_Enabled;
     addTotalField(powerMeterObj, "Power", PowerMeter.getPowerTotal(false), "W", 1);
+
+    JsonObject temperatureMeterObj = root.createNestedObject("temperature_meter");
+    temperatureMeterObj[F("enabled")] = Configuration.get().Temperature_Enabled;
+    addTotalField(temperatureMeterObj, "Temperature", TemperatureMeter.TempVal, "°C", 2);
 
 }
 

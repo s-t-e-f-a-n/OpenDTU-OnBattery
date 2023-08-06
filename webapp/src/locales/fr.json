@@ -13,6 +13,7 @@
         "PowerMeterSettings": "Power Meter",
         "BatterySettings": "Battery",
         "AcChargerSettings": "AC Charger",
+        "TemperatureSettings": "Senseur de température",
         "ConfigManagement": "Gestion de la configuration",
         "FirmwareUpgrade": "Mise à jour du firmware",
         "DeviceReboot": "Redémarrage de l'appareil",
@@ -341,6 +342,9 @@
         "Property": "Propriété",
         "Value": "Valeur",
         "Unit": "Unité"
+    },
+    "temperatureinfo": {
+        "TemperatureSensor": "Température"
     },
     "invertertotalinfo": {
         "InverterTotalYieldTotal": "Onduleurs rendement total",

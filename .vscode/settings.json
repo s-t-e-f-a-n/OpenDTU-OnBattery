@@ -2,7 +2,14 @@
     "C_Cpp.clang_format_style": "WebKit",
     "files.associations": {
         "*.tcc": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "exception": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "streambuf": "cpp"
     },
     "cmake.configureOnOpen": true
 }

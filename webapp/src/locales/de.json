@@ -13,6 +13,7 @@
         "PowerMeterSettings": "Power Meter",
         "BatterySettings": "Batterie",
         "AcChargerSettings": "AC Ladegerät",
+        "TemperatureSettings": "Temperatursensor",
         "ConfigManagement": "Konfigurationsverwaltung",
         "FirmwareUpgrade": "Firmware-Aktualisierung",
         "DeviceReboot": "Neustart",
@@ -342,6 +343,9 @@
         "Value": "Wert",
         "Unit": "Einheit"
     },
+    "temperatureinfo": {
+        "TemperatureSensor": "Temperatur"
+    },
     "invertertotalinfo": {
         "InverterTotalYieldTotal": "Inverter Gesamtertrag Insgesamt",
         "InverterTotalYieldDay": "Inverter Gesamtertrag Heute",
@@ -489,6 +493,15 @@
         "VedirectConfiguration": "VE.Direct Konfiguration",
         "EnableVedirect": "Aktiviere VE.Direct",
         "VedirectParameter": "VE.Direct Parameter",
+        "Seconds": "Sekunden",
+        "UpdatesOnly": "Werte nur bei Änderung an MQTT broker senden",
+        "Save": "@:dtuadmin.Save"
+    },
+    "temperatureadmin": {
+        "TemperatureSettings": "Temperatursensor Einstellungen",
+        "TemperatureConfiguration": "Temperatursensor Konfiguration",
+        "EnableTemperature": "Aktiviere Temperatursensor",
+        "TemperatureParameter": "Temperatur Parameter",
         "Seconds": "Sekunden",
         "UpdatesOnly": "Werte nur bei Änderung an MQTT broker senden",
         "Save": "@:dtuadmin.Save"

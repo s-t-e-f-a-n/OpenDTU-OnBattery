@@ -129,6 +129,7 @@ bool ConfigurationClass::write()
     powermeter["mqtt_topic_powermeter_1"] = config.PowerMeter_MqttTopicPowerMeter1;
     powermeter["mqtt_topic_powermeter_2"] = config.PowerMeter_MqttTopicPowerMeter2;
     powermeter["mqtt_topic_powermeter_3"] = config.PowerMeter_MqttTopicPowerMeter3;
+    powermeter["mqtt_json_path"] = config.PowerMeter_MqttJsonPath;
     powermeter["sdmbaudrate"] = config.PowerMeter_SdmBaudrate;
     powermeter["sdmaddress"] = config.PowerMeter_SdmAddress;
     powermeter["http_individual_requests"] = config.PowerMeter_HttpIndividualRequests;
@@ -180,6 +181,10 @@ bool ConfigurationClass::write()
     huawei["enable_voltage_limit"] = config.Huawei_Auto_Power_Enable_Voltage_Limit;
     huawei["lower_power_limit"] = config.Huawei_Auto_Power_Lower_Power_Limit;
     huawei["upper_power_limit"] = config.Huawei_Auto_Power_Upper_Power_Limit;
+
+    JsonObject temperature = doc.createNestedObject("temperature");
+    temperature["enabled"] = config.Temperature_Enabled;
+    temperature["updates_only"] = config.Temperature_UpdatesOnly;
 
     // Serialize JSON to file
     if (serializeJson(doc, f) == 0) {
@@ -337,6 +342,7 @@ bool ConfigurationClass::read()
     strlcpy(config.PowerMeter_MqttTopicPowerMeter1, powermeter["mqtt_topic_powermeter_1"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter1));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter2, powermeter["mqtt_topic_powermeter_2"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter2));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter3, powermeter["mqtt_topic_powermeter_3"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter3));
+    strlcpy(config.PowerMeter_MqttJsonPath, powermeter["mqtt_json_path"] | "", sizeof(config.PowerMeter_MqttJsonPath));
     config.PowerMeter_SdmBaudrate =  powermeter["sdmbaudrate"] | POWERMETER_SDMBAUDRATE;
     config.PowerMeter_SdmAddress =  powermeter["sdmaddress"] | POWERMETER_SDMADDRESS;
     config.PowerMeter_HttpIndividualRequests = powermeter["http_individual_requests"] | false;
@@ -388,6 +394,10 @@ bool ConfigurationClass::read()
     config.Huawei_Auto_Power_Enable_Voltage_Limit =  huawei["enable_voltage_limit"] | HUAWEI_AUTO_POWER_ENABLE_VOLTAGE_LIMIT;
     config.Huawei_Auto_Power_Lower_Power_Limit = huawei["lower_power_limit"] | HUAWEI_AUTO_POWER_LOWER_POWER_LIMIT;
     config.Huawei_Auto_Power_Upper_Power_Limit = huawei["upper_power_limit"] | HUAWEI_AUTO_POWER_UPPER_POWER_LIMIT;
+
+    JsonObject temperature = doc["temperature"];
+    config.Temperature_Enabled = temperature["enabled"] | TEMPERATURE_ENABLED;
+    config.Temperature_UpdatesOnly = temperature["updates_only"] | TEMPERATUR_UPDATESONLY;
 
     f.close();
     return true;

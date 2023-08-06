@@ -133,6 +133,7 @@ struct CONFIG_T {
     char PowerMeter_MqttTopicPowerMeter1[MQTT_MAX_TOPIC_STRLEN + 1];
     char PowerMeter_MqttTopicPowerMeter2[MQTT_MAX_TOPIC_STRLEN + 1];
     char PowerMeter_MqttTopicPowerMeter3[MQTT_MAX_TOPIC_STRLEN + 1];
+    char PowerMeter_MqttJsonPath[POWERMETER_MAX_HTTP_JSON_PATH_STRLEN + 1];
     uint32_t PowerMeter_SdmBaudrate;
     uint32_t PowerMeter_SdmAddress;
     uint32_t PowerMeter_HttpInterval;
@@ -162,6 +163,8 @@ struct CONFIG_T {
 
     bool Battery_Enabled;
     bool Huawei_Enabled;
+    bool Temperature_Enabled;
+    bool Temperature_UpdatesOnly;
     bool Huawei_Auto_Power_Enabled;
     float Huawei_Auto_Power_Voltage_Limit;
     float Huawei_Auto_Power_Enable_Voltage_Limit;

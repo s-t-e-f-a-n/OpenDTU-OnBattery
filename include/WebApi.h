@@ -30,6 +30,7 @@
 #include "WebApi_Huawei.h"
 #include "WebApi_ws_Pylontech.h"
 #include "WebApi_Pylontech.h"
+#include "WebApi_temperature.h"
 #include <ESPAsyncWebServer.h>
 
 class WebApiClass {
@@ -72,12 +73,11 @@ private:
     WebApiWsVedirectLiveClass _webApiWsVedirectLive;
     WebApiWsVedirect2LiveClass _webApiWsVedirect2Live;
     WebApiVedirectClass _webApiVedirect;
-//    WebApiVedirect2Class _webApiVedirect2;
     WebApiHuaweiClass _webApiHuaweiClass;
     WebApiWsHuaweiLiveClass _webApiWsHuaweiLive;
     WebApiPylontechClass _webApiPylontechClass;
     WebApiWsPylontechLiveClass _webApiWsPylontechLive;
-    
+    WebApiTemperatureClass _webApiTemperature;
 };
 
 extern WebApiClass WebApi;

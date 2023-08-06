@@ -13,6 +13,7 @@
         "PowerMeterSettings": "Power Meter",
         "BatterySettings": "Battery",
         "AcChargerSettings": "AC Charger",
+        "TemperatureSettings": "Temperature Sensor",
         "ConfigManagement": "Config Management",
         "FirmwareUpgrade": "Firmware Upgrade",
         "DeviceReboot": "Device Reboot",
@@ -341,6 +342,9 @@
         "Property": "Property",
         "Value": "Value",
         "Unit": "Unit"
+    },
+    "temperatureinfo": {
+        "TemperatureSensor": "Temperature"
     },
     "invertertotalinfo": {
         "InverterTotalYieldTotal": "Inverter Total Yield Total",

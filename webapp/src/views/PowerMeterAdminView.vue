@@ -62,6 +62,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <InputElement :label="$t('powermeteradmin.httpJsonPath')"
+                                v-model="powerMeterConfigList.mqtt_json_path"
+                                type="text"
+                                maxlength="256"
+                                placeholder="eHZ/wirkleistung"
+                                :tooltip="$t('powermeteradmin.httpJsonPathDescription')" />
+
                 </CardElement>
 
                 <CardElement v-if="(powerMeterConfigList.source === 1 || powerMeterConfigList.source === 2)"
