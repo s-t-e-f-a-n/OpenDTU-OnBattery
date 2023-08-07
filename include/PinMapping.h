@@ -42,6 +42,7 @@ struct PinMapping_t {
     int8_t victron_rx;
     int8_t victron2_tx;
     int8_t victron2_rx;
+    int8_t ow;
     int8_t battery_rx;
     int8_t battery_tx;
     int8_t huawei_miso;

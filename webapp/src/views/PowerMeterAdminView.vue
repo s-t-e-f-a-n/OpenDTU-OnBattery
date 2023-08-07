@@ -43,6 +43,14 @@
                         </div>
                     </div>
 
+                    <InputElement :label="$t('powermeteradmin.mqttJsonPath1')"
+                                v-model="powerMeterConfigList.mqtt_json_path_1"
+                                type="text"
+                                maxlength="256"
+                                placeholder="eHZ/wirkleistung1"
+                                :tooltip="$t('powermeteradmin.mqttJsonPathDescription')" />
+
+
                     <div class="row mb-3">
                         <label for="inputMqttTopicPowerMeter2" class="col-sm-2 col-form-label">{{ $t('powermeteradmin.MqttTopicPowerMeter2') }}:</label>
                         <div class="col-sm-10">
@@ -52,6 +60,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <InputElement :label="$t('powermeteradmin.mqttJsonPath2')"
+                                v-model="powerMeterConfigList.mqtt_json_path_2"
+                                type="text"
+                                maxlength="256"
+                                placeholder="eHZ/wirkleistung2"
+                                :tooltip="$t('powermeteradmin.mqttJsonPathDescription')" />
+
 
                     <div class="row mb-3">
                         <label for="inputMqttTopicPowerMeter3" class="col-sm-2 col-form-label">{{ $t('powermeteradmin.MqttTopicPowerMeter3') }}:</label>
@@ -63,12 +79,13 @@
                         </div>
                     </div>
 
-                    <InputElement :label="$t('powermeteradmin.httpJsonPath')"
-                                v-model="powerMeterConfigList.mqtt_json_path"
+                    <InputElement :label="$t('powermeteradmin.mqttrJsonPath3')"
+                                v-model="powerMeterConfigList.mqtt_json_path_3"
                                 type="text"
                                 maxlength="256"
-                                placeholder="eHZ/wirkleistung"
-                                :tooltip="$t('powermeteradmin.httpJsonPathDescription')" />
+                                placeholder="eHZ/wirkleistung3"
+                                :tooltip="$t('powermeteradmin.mqttJsonPathDescription')" />
+
 
                 </CardElement>
 
@@ -189,7 +206,7 @@
 
             <button type="submit" class="btn btn-primary mb-3">{{ $t('powermeteradmin.Save') }}</button>
 
-            <div v-if="powerMeterConfigList.source === 3" class="alert alert-secondary" role="alert">
+            <div v-if="powerMeterConfigList.source === 0 || powerMeterConfigList.source === 3" class="alert alert-secondary" role="alert">
                 <h2>URL examples:</h2>
                 <ul>
                     <li>http://admin:secret@shelly3em.home/status</li>

@@ -129,7 +129,9 @@ bool ConfigurationClass::write()
     powermeter["mqtt_topic_powermeter_1"] = config.PowerMeter_MqttTopicPowerMeter1;
     powermeter["mqtt_topic_powermeter_2"] = config.PowerMeter_MqttTopicPowerMeter2;
     powermeter["mqtt_topic_powermeter_3"] = config.PowerMeter_MqttTopicPowerMeter3;
-    powermeter["mqtt_json_path"] = config.PowerMeter_MqttJsonPath;
+    powermeter["mqtt_json_path_1"] = config.PowerMeter_MqttJsonPath1;
+    powermeter["mqtt_json_path_2"] = config.PowerMeter_MqttJsonPath2;
+    powermeter["mqtt_json_path_3"] = config.PowerMeter_MqttJsonPath3;
     powermeter["sdmbaudrate"] = config.PowerMeter_SdmBaudrate;
     powermeter["sdmaddress"] = config.PowerMeter_SdmAddress;
     powermeter["http_individual_requests"] = config.PowerMeter_HttpIndividualRequests;
@@ -342,7 +344,9 @@ bool ConfigurationClass::read()
     strlcpy(config.PowerMeter_MqttTopicPowerMeter1, powermeter["mqtt_topic_powermeter_1"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter1));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter2, powermeter["mqtt_topic_powermeter_2"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter2));
     strlcpy(config.PowerMeter_MqttTopicPowerMeter3, powermeter["mqtt_topic_powermeter_3"] | "", sizeof(config.PowerMeter_MqttTopicPowerMeter3));
-    strlcpy(config.PowerMeter_MqttJsonPath, powermeter["mqtt_json_path"] | "", sizeof(config.PowerMeter_MqttJsonPath));
+    strlcpy(config.PowerMeter_MqttJsonPath1, powermeter["mqtt_json_path_1"] | "", sizeof(config.PowerMeter_MqttJsonPath1));
+    strlcpy(config.PowerMeter_MqttJsonPath2, powermeter["mqtt_json_path_2"] | "", sizeof(config.PowerMeter_MqttJsonPath2));
+    strlcpy(config.PowerMeter_MqttJsonPath3, powermeter["mqtt_json_path_3"] | "", sizeof(config.PowerMeter_MqttJsonPath3));
     config.PowerMeter_SdmBaudrate =  powermeter["sdmbaudrate"] | POWERMETER_SDMBAUDRATE;
     config.PowerMeter_SdmAddress =  powermeter["sdmaddress"] | POWERMETER_SDMADDRESS;
     config.PowerMeter_HttpIndividualRequests = powermeter["http_individual_requests"] | false;

@@ -102,6 +102,10 @@
 #define VICTRON2_PIN_RX -1
 #endif
 
+#ifndef OW_PIN
+#define OW_PIN -1
+#endif
+
 #ifndef PYLONTECH_PIN_RX
 #define PYLONTECH_PIN_RX -1
 #endif
@@ -178,6 +182,8 @@ PinMappingClass::PinMappingClass()
     _pinMapping.victron2_tx = VICTRON2_PIN_TX;
     _pinMapping.victron2_rx = VICTRON2_PIN_RX;
 
+    _pinMapping.ow = OW_PIN;
+
     _pinMapping.battery_rx = PYLONTECH_PIN_RX;
     _pinMapping.battery_tx = PYLONTECH_PIN_TX;
 
@@ -253,6 +259,8 @@ bool PinMappingClass::init(const String& deviceMapping)
 
             _pinMapping.victron2_rx = doc[i]["victron"]["rx2"] | VICTRON2_PIN_RX;
             _pinMapping.victron2_tx = doc[i]["victron"]["tx2"] | VICTRON2_PIN_TX;
+
+            _pinMapping.ow = doc[i]["temperature"]["ow"] | OW_PIN;
 
             _pinMapping.battery_rx = doc[i]["battery"]["rx"] | PYLONTECH_PIN_RX;
             _pinMapping.battery_tx = doc[i]["battery"]["tx"] | PYLONTECH_PIN_TX;

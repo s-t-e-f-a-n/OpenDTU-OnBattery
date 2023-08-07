@@ -2,9 +2,6 @@
 /*
  * Copyright (C) 2023 s-c-h-m-i-t-t
  */
-// https://github.com/PaulStoffregen/OneWire
-// https://github.com/stickbreaker/OneWire
-// https://github.com/lcapossio/fresca/tree/master
 
 
 #include "TemperatureMeter.h"
@@ -40,7 +37,6 @@ void TemperatureMeterClass::init()
       Configuration.write();
       MessageOutput.print("No Temperature Sensor found: Disabled Confguration...");
     }
-
 }
 
 void TemperatureMeterClass::loop(void)
@@ -53,33 +49,32 @@ void TemperatureMeterClass::loop(void)
 
   if (millis() - _lastTemperatureMeterCheck > 1000) {
 
+      readTemperatureMeter();
+
       _lastTemperatureMeterCheck = millis();
 
-      readTemperatureMeter();
+      mqtt();
   }
 }
 
 void TemperatureMeterClass::readTemperatureMeter(void)
 {
-  // call sensors.requestTemperatures() to issue a global temperature
-  // request to all devices on the bus
-  //MessageOutput.print("Requesting temperatures...");
   sensors.requestTemperatures(); // Send the command to get temperatures
-  //MessageOutput.println("DONE");
-  // After we got the temperatures, we can print them here.
-  // We use the function ByIndex, and as an example get the temperature from the first sensor only.
+
   TempVal = sensors.getTempCByIndex(0);
 
-  // Check if reading was successful
-  if (TempVal != DEVICE_DISCONNECTED_C)
-  {
-    //MessageOutput.print("Temperature for the device 1 (index 0) is: ");
-    //MessageOutput.println(TempVal);
-  }
-  else
-  {
-    MessageOutput.println("Error: Could not read temperature data");
-  }
+  if (TempVal == DEVICE_DISCONNECTED_C) { MessageOutput.println("Error: Could not read temperature data"); }
 }
+
+void TemperatureMeterClass::mqtt()
+{
+    if (!MqttSettings.getConnected()) {
+        return;
+    } else {
+        String topic = "temperaturemeter";
+        MqttSettings.publish(topic + "/temperature1", String(TempVal));
+    }
+}
+
 
 

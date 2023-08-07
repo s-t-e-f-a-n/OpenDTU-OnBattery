@@ -10,7 +10,6 @@
 #include "NetworkSettings.h"
 #include "SDM.h"
 #include "MessageOutput.h"
-#include <FirebaseJson.h>
 #include <ctime>
 #include <SoftwareSerial.h>
 
@@ -73,8 +72,6 @@ void PowerMeterClass::init()
 
 void PowerMeterClass::onMqttMessage(const espMqttClientTypes::MessageProperties& properties, const char* topic, const uint8_t* payload, size_t len, size_t index, size_t total)
 {
-    MessageOutput.printf("_powerMeter1Power: %s von topic: %s", payload, topic);
-
     CONFIG_T& config = Configuration.get();
 
     if (!config.PowerMeter_Enabled || config.PowerMeter_Source != SOURCE_MQTT) {
@@ -82,27 +79,38 @@ void PowerMeterClass::onMqttMessage(const espMqttClientTypes::MessageProperties&
     }
 
     if (strcmp(topic, config.PowerMeter_MqttTopicPowerMeter1) == 0) {
-        if (strcmp(config.PowerMeter_MqttJsonPath,"") == 0) {
+        if (strcmp(config.PowerMeter_MqttJsonPath1,"") == 0) {
             _powerMeter1Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
         }
         else {
-           HttpPowerMeter.getFloatValueByJsonPath( (const char*)payload, config.PowerMeter_MqttJsonPath, _powerMeter1Power);
+            if (!HttpPowerMeter.getFloatValueByJsonPath( std::string(reinterpret_cast<const char*>(payload), (unsigned int)len).c_str(), config.PowerMeter_MqttJsonPath1, _powerMeter1Power) ) {
+                MessageOutput.printf("PowerMeterClass getFloatValueByJsonPath Error: payload %s / len %d / JsonPath %s\r\n", payload, len, config.PowerMeter_MqttJsonPath1);
+            }
         }
-
-        MessageOutput.printf("PowerMeterClass: _powerMeter1Power: %f\r\n", _powerMeter1Power);
-
     }
 
     if (strcmp(topic, config.PowerMeter_MqttTopicPowerMeter2) == 0) {
-        _powerMeter2Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        if (strcmp(config.PowerMeter_MqttJsonPath2,"") == 0) {
+            _powerMeter2Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        }
+        else {
+            if (!HttpPowerMeter.getFloatValueByJsonPath( std::string(reinterpret_cast<const char*>(payload), (unsigned int)len).c_str(), config.PowerMeter_MqttJsonPath2, _powerMeter2Power) ) {
+                MessageOutput.printf("PowerMeterClass getFloatValueByJsonPath Error: payload %s / len %d / JsonPath %s\r\n", payload, len, config.PowerMeter_MqttJsonPath2);
+            }
+        }
     }
 
     if (strcmp(topic, config.PowerMeter_MqttTopicPowerMeter3) == 0) {
-        _powerMeter3Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        if (strcmp(config.PowerMeter_MqttJsonPath3,"") == 0) {
+            _powerMeter3Power = std::stof(std::string(reinterpret_cast<const char*>(payload), (unsigned int)len));
+        }
+        else {
+            if (!HttpPowerMeter.getFloatValueByJsonPath( std::string(reinterpret_cast<const char*>(payload), (unsigned int)len).c_str(), config.PowerMeter_MqttJsonPath3, _powerMeter3Power) ) {
+                MessageOutput.printf("PowerMeterClass getFloatValueByJsonPath Error: payload %s / len %d / JsonPath %s\r\n", payload, len, config.PowerMeter_MqttJsonPath3);
+            }
+        }
     }
 
-    MessageOutput.printf("PowerMeterClass: TotalPower: %5.2f\r\n", getPowerTotal());
-    
     _lastPowerMeterUpdate = millis();
 }
 
@@ -157,8 +165,6 @@ void PowerMeterClass::loop()
     }
 
     readPowerMeter();
-
-    MessageOutput.printf("PowerMeterClass: TotalPower: %5.2f\r\n", getPowerTotal());
 
     mqtt();
 

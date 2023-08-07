@@ -191,15 +191,18 @@ bool HttpPowerMeterClass::httpRequest(const char* url, Auth authType, const char
 float HttpPowerMeterClass::getFloatValueByJsonPath(const char* jsonString, const char* jsonPath, float& value)
 {
     FirebaseJson firebaseJson;
-    firebaseJson.setJsonData(jsonString);
+    if (!firebaseJson.setJsonData(jsonString)) {
+        MessageOutput.printf("getFloatValueByJsonPath: Error setJsonData of jsonString: %s\r\n", jsonString);
+    }
 
     FirebaseJsonData firebaseJsonResult;
     if (!firebaseJson.get(firebaseJsonResult, jsonPath)) {
+        MessageOutput.printf("getFloatValueByJsonPath: Error get of jsonPath: %s\r\n", jsonPath);
+        firebaseJson.clear();
         return false;
     }
 
     value = firebaseJsonResult.to<float>();
-
     firebaseJson.clear();
 
     return true;

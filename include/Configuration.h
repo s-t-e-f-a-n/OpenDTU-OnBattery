@@ -133,7 +133,9 @@ struct CONFIG_T {
     char PowerMeter_MqttTopicPowerMeter1[MQTT_MAX_TOPIC_STRLEN + 1];
     char PowerMeter_MqttTopicPowerMeter2[MQTT_MAX_TOPIC_STRLEN + 1];
     char PowerMeter_MqttTopicPowerMeter3[MQTT_MAX_TOPIC_STRLEN + 1];
-    char PowerMeter_MqttJsonPath[POWERMETER_MAX_HTTP_JSON_PATH_STRLEN + 1];
+    char PowerMeter_MqttJsonPath1[POWERMETER_MAX_HTTP_JSON_PATH_STRLEN + 1];
+    char PowerMeter_MqttJsonPath2[POWERMETER_MAX_HTTP_JSON_PATH_STRLEN + 1];
+    char PowerMeter_MqttJsonPath3[POWERMETER_MAX_HTTP_JSON_PATH_STRLEN + 1];
     uint32_t PowerMeter_SdmBaudrate;
     uint32_t PowerMeter_SdmAddress;
     uint32_t PowerMeter_HttpInterval;
